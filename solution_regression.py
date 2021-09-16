@@ -23,9 +23,11 @@ class Regression:
 
         NOTE : En mettant phi_x = x, on a une fonction de base lineaire qui fonctionne pour une regression lineaire
         """
-        # AJOUTER CODE ICI
-        phi_x = x
-        return phi_x
+        # Retourne phi_x
+        # Si c'est un scalaire : [x^0, x^1, ... x^M-1]
+        # Si c'est un vecteur : [[x0^0,x1^0,...xM-1^0],....,[x0^M-1,x1^M-1,...xM-1^M-1]]T
+        return np.transpose([np.power(x,j) for j in range(0, self.M)])
+        
 
     def recherche_hyperparametre(self, X, t):
         """
