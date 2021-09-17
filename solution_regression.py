@@ -103,7 +103,7 @@ class Regression:
         phi_x = self.fonction_base_polynomiale(X)
 
         if using_sklearn == True :
-            reg = linear_model.LinearRegression()
+            reg = linear_model.Ridge(alpha=self.lamb, fit_intercept=False)
             reg.fit(X, t)
             self.w = np.insert(reg.coef_, 0, reg.intercept_)
 
