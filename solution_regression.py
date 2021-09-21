@@ -133,4 +133,4 @@ class Regression:
         la cible ``t`` et la prediction ``prediction``.
         """
         # AJOUTER CODE ICI
-        return 0.0
+        return np.power(t-prediction, 2)
