@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 
 #####
-# VotreNom (VotreMatricule) .~= À MODIFIER =~.
+# Vincent Latourelle (18 219 818)
+# Charles Lachance (17 093 137)
+# Manina Meng (21 161 779)
 ###
 
 import numpy as np
