@@ -122,7 +122,7 @@ class Regression:
         afin de calculer la prediction y(x,w) (equation 3.1 et 3.3).
         """
         phi_x = self.fonction_base_polynomiale(x)
-        return np.sum(np.dot(self.w, phi_x))
+        return np.dot(self.w, phi_x)
 
     @staticmethod
     def erreur(t, prediction):
