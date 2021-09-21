@@ -54,7 +54,7 @@ class Regression:
                 t_valid = t[separateur:]
 
                 # Entrainner sur une partie des donnees et valider sur l'autre
-                self.entrainement(X_train,t_train)
+                self.entrainement(X_train, t_train)
 
                 predictions_validation = np.array([self.prediction(x) for x in X_valid])
 
