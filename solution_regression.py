@@ -124,7 +124,8 @@ class Regression:
         a prealablement ete appelee. Elle doit utiliser le champs ``self.w``
         afin de calculer la prediction y(x,w) (equation 3.1 et 3.3).
         """
-        return np.sum(np.dot(self.w, x))
+        phi_x = self.fonction_base_polynomiale(x)
+        return np.sum(np.dot(self.w, phi_x))
 
     @staticmethod
     def erreur(t, prediction):
