@@ -96,7 +96,6 @@ class Regression:
         NOTE IMPORTANTE : lorsque self.M <= 0, il faut trouver la bonne valeur de self.M
 
         """
-        #AJOUTER CODE ICI
         if self.M <= 0:
             self.recherche_hyperparametre(X, t)
 
@@ -112,8 +111,6 @@ class Regression:
             a = np.matmul(np.transpose(phi_x),phi_x) + self.lamb * np.identity(self.M)
             b = np.matmul(np.transpose(phi_x), t)
             self.w = np.linalg.solve(a, b)
-
-
 
     def prediction(self, x):
         """
@@ -133,5 +130,4 @@ class Regression:
         Retourne l'erreur de la difference au carre entre
         la cible ``t`` et la prediction ``prediction``.
         """
-        # AJOUTER CODE ICI
         return np.power(t-prediction, 2)
