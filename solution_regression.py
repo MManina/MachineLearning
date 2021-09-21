@@ -42,10 +42,10 @@ class Regression:
         k = 10
         resultat = {}
         # Pour chaque valeur d'hyperparametre M possible entre 1 et 20
-        for m in range(1,20):
+        for m in range(1, 20):
             erreur_validation_moyenne = 0
             self.M = m
-            for j in range(0,k):
+            for j in range(0, k):
                 # Determiner un separateur aleatoirement et separer les donnees d'entrainement en 2 zones
                 separateur = random.randint(1, len(X)-1)
                 X_train = X[:separateur]
@@ -64,11 +64,11 @@ class Regression:
                 erreur_validation_moyenne += erreur_validation.mean()
             
             #Calcule la moyenne des erreurs de validation pour ce m
-            resultat[m] = erreur_validation_moyenne/k
+            resultat[m] = erreur_validation_moyenne / k
 
         # https://stackoverflow.com/questions/3282823/get-the-key-corresponding-to-the-minimum-value-within-a-dictionary
         # Obtient la cle ayant la valeur minimum dans le dictionnaire
-        self.M  = min(resultat,key=resultat.get)
+        self.M  = min(resultat, key=resultat.get)
 
     def entrainement(self, X, t, using_sklearn=False):
         """
@@ -112,8 +112,7 @@ class Regression:
         a prealablement ete appelee. Elle doit utiliser le champs ``self.w``
         afin de calculer la prediction y(x,w) (equation 3.1 et 3.3).
         """
-        # AJOUTER CODE ICI
-        return 0.5
+        return np.sum(np.dot(self.w, x))
 
     @staticmethod
     def erreur(t, prediction):
