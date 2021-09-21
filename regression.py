@@ -16,7 +16,10 @@ def warning(erreur_test, erreur_apprentissage, bruit):
     erreur_apprentissage: erreur obtenue sur l'ensemble d'apprentissage
     bruit: magnitude du bruit
     """
-    # AJOUTER CODE ICI
+    if erreur_test > erreur_apprentissage + bruit:
+      print("Warning : risque de sur-apprentissage.")
+    elif erreur_apprentissage > bruit:
+      print("Warning : risque de sous-apprentissage.")
 
 ################################
 # Execution en tant que script 

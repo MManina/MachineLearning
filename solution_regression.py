@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 
 #####
-# VosNoms (Matricule) .~= À MODIFIER =~.
+# Vincent Latourelle (18 219 818)
+# Charles Lachance (17 093 137)
+# Manina Meng (21 161 779)
 ###
 
 import numpy as np
@@ -42,10 +44,10 @@ class Regression:
         k = 10
         resultat = {}
         # Pour chaque valeur d'hyperparametre M possible entre 1 et 20
-        for m in range(1,20):
+        for m in range(1, 20):
             erreur_validation_moyenne = 0
             self.M = m
-            for j in range(0,k):
+            for j in range(0, k):
                 # Determiner un separateur aleatoirement et separer les donnees d'entrainement en 2 zones
                 separateur = random.randint(1, len(X)-1)
                 X_train = X[:separateur]
@@ -54,7 +56,7 @@ class Regression:
                 t_valid = t[separateur:]
 
                 # Entrainner sur une partie des donnees et valider sur l'autre
-                self.entrainement(X_train,t_train)
+                self.entrainement(X_train, t_train)
 
                 predictions_validation = np.array([self.prediction(x) for x in X_valid])
 
@@ -64,11 +66,11 @@ class Regression:
                 erreur_validation_moyenne += erreur_validation.mean()
             
             #Calcule la moyenne des erreurs de validation pour ce m
-            resultat[m] = erreur_validation_moyenne/k
+            resultat[m] = erreur_validation_moyenne / k
 
         # https://stackoverflow.com/questions/3282823/get-the-key-corresponding-to-the-minimum-value-within-a-dictionary
         # Obtient la cle ayant la valeur minimum dans le dictionnaire
-        self.M  = min(resultat,key=resultat.get)
+        self.M  = min(resultat, key=resultat.get)
 
     def entrainement(self, X, t, using_sklearn=False):
         """
@@ -96,12 +98,21 @@ class Regression:
         NOTE IMPORTANTE : lorsque self.M <= 0, il faut trouver la bonne valeur de self.M
 
         """
-        #AJOUTER CODE ICI
         if self.M <= 0:
             self.recherche_hyperparametre(X, t)
 
         phi_x = self.fonction_base_polynomiale(X)
-        self.w = [0, 1]
+
+        if using_sklearn == True :
+            reg = linear_model.Ridge(alpha=self.lamb)
+            reg.fit(phi_x, t)
+            self.w = reg.coef_
+            self.w[0] = reg.intercept_
+
+        elif using_sklearn == False :
+            a = np.matmul(np.transpose(phi_x),phi_x) + self.lamb * np.identity(self.M)
+            b = np.matmul(np.transpose(phi_x), t)
+            self.w = np.linalg.solve(a, b)
 
     def prediction(self, x):
         """
@@ -112,8 +123,8 @@ class Regression:
         a prealablement ete appelee. Elle doit utiliser le champs ``self.w``
         afin de calculer la prediction y(x,w) (equation 3.1 et 3.3).
         """
-        # AJOUTER CODE ICI
-        return 0.5
+        phi_x = self.fonction_base_polynomiale(x)
+        return np.dot(self.w, phi_x)
 
     @staticmethod
     def erreur(t, prediction):
@@ -121,5 +132,4 @@ class Regression:
         Retourne l'erreur de la difference au carre entre
         la cible ``t`` et la prediction ``prediction``.
         """
-        # AJOUTER CODE ICI
-        return 0.0
+        return np.power(t-prediction, 2)
