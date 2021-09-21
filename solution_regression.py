@@ -101,7 +101,19 @@ class Regression:
             self.recherche_hyperparametre(X, t)
 
         phi_x = self.fonction_base_polynomiale(X)
-        self.w = [0, 1]
+
+        if using_sklearn == True :
+            reg = linear_model.Ridge(alpha=self.lamb)
+            reg.fit(phi_x, t)
+            self.w = reg.coef_
+            self.w[0] = reg.intercept_
+
+        elif using_sklearn == False :
+            a = np.matmul(np.transpose(phi_x),phi_x) + self.lamb * np.identity(self.M)
+            b = np.matmul(np.transpose(phi_x), t)
+            self.w = np.linalg.solve(a, b)
+
+
 
     def prediction(self, x):
         """
